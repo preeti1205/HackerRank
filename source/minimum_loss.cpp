@@ -53,4 +53,54 @@ Explanation 1
 
 Lauren buys the house in year at price and sells it in year at for a minimal loss of .
 
+
+SIDE NOTE:    There can be no O(n) solution
+#define pf printf
+#define sf scanf              *****************
+
+using namespace std;
+
+typedef long long vlong;    *****************
+
+const vlong inf = 1000000000000000000LL;
+
 */
+
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <limits.h>
+#include <set>
+using namespace std;
+
+
+int main() {
+
+    int n;
+    vector<long long> input;
+    set<long long> visited;
+    long long result = 1<<20;
+    cin>>n;
+    for(int i = 0; i < n; i++) {
+        long long temp;
+        cin>>temp;
+        input.push_back(temp);
+    }
+
+    long long max_element = max(input[0], 0LL);
+    visited.insert(input[0]);
+    for (int i = 1; i < n; i++) {
+        if (input[i] < max_element) {
+            long long closest_element = *visited.upper_bound(input[i]);
+            long long loss = closest_element - input[i];
+            result = min(loss, result);
+        }
+        visited.insert(input[i]);
+        max_element = max(max_element, input[i]);
+    }
+
+    cout<<result;
+    return 0;
+}
