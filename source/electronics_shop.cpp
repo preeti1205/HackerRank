@@ -78,11 +78,38 @@ There is no way to buy one keyboard and one USB drive because , so we print .
 
 using namespace std;
 
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+
 
 int main(){
     int s;
     int n;
     int m;
+    int result = -1;
+    vector<int> output;
     cin >> s >> n >> m;
     vector<int> keyboards(n);
     for(int keyboards_i = 0;keyboards_i < n;keyboards_i++){
@@ -92,5 +119,45 @@ int main(){
     for(int pendrives_i = 0;pendrives_i < m;pendrives_i++){
        cin >> pendrives[pendrives_i];
     }
+    //my answer starts here
+    //sort(keyboards.begin(), keyboards.end());
+    //sort(pendrives.begin(), pendrives.end());
+
+    for(int i = 0; i < n;i++) {
+        for(int j = 0; j < m; j++){
+            int temp = keyboards[i] + pendrives[j];
+            output.push_back(temp);
+        }
+    }
+
+    sort(output.begin(), output.end());
+    int size = output.size();
+    for(int i = size - 1; i >= 0; i--) {
+        if (output[i] <= s) {
+            result = output[i];
+            break;
+        }
+    }
+
+    cout<<result;
+    //if (n > 0 && m > 0 && keyboards[0] + pendrives[0] > sum)
+    /*
+    int i = n-1, j = m-1;
+    while(i >= 0 && j >= 0) {
+        int sum = keyboards[i] + pendrives[j];
+        if(sum <= s){
+            result = sum;
+            break;
+        }
+        else if(keyboards[i] >= s) i--;
+        else if (pendrives[j] >= s)j--;
+        else{
+            if (keyboards[i] < pendrives[j]) i--;
+            else j--;
+        }
+    }
+    if(result == 0) result = -1;
+    cout<<result;
+    */
     return 0;
 }
