@@ -66,10 +66,13 @@ int main() {
         input.push_back(a);
     }
     cin>>m>>hmin>>hmax;
+
+    //result code
     result = input[0] - hmin;
     int dist_left = m - hmin;
     int i = 1;
     while(i < n) {
+        if(dist_left <= 0) break;
         int diff = input[i] - input[i-1];
         if (diff <= hmax && diff >= hmin) dist_left -= diff ;
         else if (diff < hmin) {
@@ -87,6 +90,7 @@ int main() {
         }
        i++;
     }
+    if (dist_left > hmax) result -= (hmax - hmin);
     cout<<result;
     return 0;
 }
